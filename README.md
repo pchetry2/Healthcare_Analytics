@@ -1,9 +1,9 @@
-**Hospital Length of Stay Analysis and Prediction in New York State Healthcare System**
+# Hospital Length of Stay Analysis and Prediction in New York State Healthcare System
 
-1. **Executive Summary**
+1. # Executive Summary
 Developed comprehensive analysis and prediction model for patient length of stay using NY State SPARCS dataset, achieving 78.7% accuracy (R² score). Project combines SQL analysis, statistical testing, and machine learning to provide actionable healthcare insights.
 
-2. **Project Overview**
+2. # Project Overview
 2.1 **Problem Statement**
 Healthcare facilities face challenges in:
 
@@ -20,7 +20,7 @@ Predict patient length of stay
 Identify key Lenght of Stay influencing factors
 Generate data-driven operational insights
 
-3. **Dataset**
+3. # Dataset
 3.1 **Source Information**
 
 **Origin**: NY State Department of Health SPARCS
@@ -28,17 +28,17 @@ Generate data-driven operational insights
 **Size**: 1,048,575 records, 28 features
 **Key Variables**: Demographics, Clinical Indicators, Costs, Facility data
 
-3.2 **Features**
+3.2 **# Features**
 
 <img width="552" alt="Screenshot 2024-12-03 at 1 13 43 PM" src="https://github.com/user-attachments/assets/6bc3c968-257a-44d2-84c8-c847a5d0d55d">
 
-4. **Data Pipeline and Infrastructure Setup**
+4. # Data Pipeline and Infrastructure Setup
 
 Created AWS RDS PostgreSQL instance for scalable data storage
 Established secure connection to database
 Developed data loading pipeline to handle 1M+ records efficiently
 
-5. **Exploratory Data Analysis and SQL Insights**
+5. # Exploratory Data Analysis and SQL Insights
 
 5.1 **Initial Data Assessment**
 
@@ -187,7 +187,7 @@ Highest: Hospital for Special Surgery ($11,546/day)
 Lowest: SJRH Park Care Pavilion ($650/day)
 Shows wide range in service costs and resource utilization
 
-6. **A/B Testing Analysis**
+6. # A/B Testing Analysis
 I conducted A/B testing to compare Length of Stay and Total Costs between different severity levels:
 **Hypothesis Testing**
 <img width="745" alt="Screenshot 2024-12-03 at 1 54 31 PM" src="https://github.com/user-attachments/assets/609bacc9-df70-4ead-bd34-66d1bc2dbc94">
@@ -205,7 +205,7 @@ Cost variations across severity levels
 <img width="1108" alt="Screenshot 2024-12-03 at 1 56 49 PM" src="https://github.com/user-attachments/assets/0d901689-aa92-4d3c-b2d5-75addaaf0878">
 
 
-7. **Feature Engineering**
+7. # Feature Engineering
 I engineered several new features to improve model performance:
 **Demographic Features:**
 # Age Group encoding
@@ -241,7 +241,7 @@ df_cleaned["Hospital_Average_LOS"] = df_cleaned["Facility_Name"].map(
 df_cleaned["Service_Area_Average_LOS"] = df_cleaned["Hospital_Service_Area"].map(
     df_cleaned.groupby("Hospital_Service_Area")["Length_of_Stay"].mean())
 
-8. **Machine Learning Model**
+8. # Machine Learning Model
 I stratified the dataset to 50k records to create a balanced dataset and enable efficient model training. I also scaled the dataset to ensure all input features were on a similar scale.
 I built a Random Forest model for the length of stay prediction, using the following hyperparameter grid:
 random_grid = {
@@ -263,7 +263,7 @@ The final model achieved the following performance metrics:
 
 These results indicate a reasonably accurate predictive model for length of stay.
 
-9. **Feature Importance Analysis**
+9. # Feature Importance Analysis
 To understand the key drivers of length of stay prediction, I analyzed the feature importance of the Random Forest model. The top influential features were:
 
 **Cost-Related Features:**
@@ -285,7 +285,7 @@ Cost metrics are strongest predictors
 Clinical severity significantly influences LOS
 Facility characteristics play important role
 
-10. **Visualization Dashbaord**
+10. # Visualization Dashbaord
 I created interactive Excel Dashboards
 
 1. **Hospital Performance Dashboard**
