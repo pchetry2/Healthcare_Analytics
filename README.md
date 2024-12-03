@@ -16,8 +16,8 @@ Emergency preparedness
 2.2 **Objectives**
 
 Analyze cost patterns across facilities
-Identify key LOS influencing factors
 Predict patient length of stay
+Identify key Lenght of Stay influencing factors
 Generate data-driven operational insights
 
 3. **Dataset**
@@ -286,6 +286,38 @@ Clinical severity significantly influences LOS
 Facility characteristics play important role
 
 10. **Visualization Dashbaord**
+I created interactive Excel Dashboards
+
+1. **Hospital Performance Dashboard**
+
+KPI metrics showing:
+Total Patient Visits
+Average LOS
+Average Costs
+Emergency Rates
+
+
+
+https://github.com/user-attachments/assets/6f0766b0-2567-4a77-a734-f4c32ebe20e5
+
+2. **Clinical & Financial Analysis Dashboard**
+
+Top 5 hospitals by highest cost diagnosis
+Age group LOS analysis
+Payment provider distribution
+Cost vs LOS correlation scatter plot
+
+Data filterable by:
+Facility
+Diagnosis
+Severity level
+
+
+
+https://github.com/user-attachments/assets/7fb02d87-4837-4fce-b8be-837e5247e362
+
+
+
 
 
 
