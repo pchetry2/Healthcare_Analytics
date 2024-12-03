@@ -29,6 +29,7 @@ Generate data-driven operational insights
 **Key Variables**: Demographics, Clinical Indicators, Costs, Facility data
 
 3.2 **Features**
+
 <img width="552" alt="Screenshot 2024-12-03 at 1 13 43 PM" src="https://github.com/user-attachments/assets/6bc3c968-257a-44d2-84c8-c847a5d0d55d">
 
 4. **Data Pipeline and Infrastructure Setup**
@@ -202,6 +203,91 @@ Cost variations across severity levels
 
 <img width="1192" alt="Screenshot 2024-12-03 at 1 59 40 PM" src="https://github.com/user-attachments/assets/094613a0-4057-4446-a3b4-8eb3cd0b3b5a">
 <img width="1108" alt="Screenshot 2024-12-03 at 1 56 49 PM" src="https://github.com/user-attachments/assets/0d901689-aa92-4d3c-b2d5-75addaaf0878">
+
+
+7. **Feature Engineering**
+I engineered several new features to improve model performance:
+**Demographic Features:**
+# Age Group encoding
+age_mapping = {" 0 to 17": 1, "18 to 29": 2, "30 to 49": 3, 
+               "50 to 69": 4, "70 or Older": 5}
+df_cleaned["Age_Group_encoded"] = df_cleaned["Age_Group"].str.strip().map(age_mapping)
+
+# Gender binary encoding
+gender_mapping = {"M": 1, "F": 0}
+df_cleaned["Gender_Binary"] = df_cleaned["Gender"].map(gender_mapping)
+
+**Clinical Indicators**:
+# Emergency admission flag
+df_cleaned["Is_Emergency_Admission"] = df_cleaned["Type_of_Admission"].apply(
+    lambda x: 1 if x == "Emergency" else 0)
+
+# Severity risk composite
+df_cleaned["Severity_Risk_Index"] = df_cleaned["APR_Severity_Illness_Code"] * \
+                                   df_cleaned["APR_Risk_Mortality"]
+
+# Risk mortality encoding
+ordinal_mapping = {"Minor": 1, "Moderate": 2, "Extreme": 3, "": 0}
+df_cleaned["APR_Risk_Mortality_Encoded"] = df_cleaned["APR_Risk_Mortality"].map(ordinal_mapping)
+
+**Facility and Cost Metrics**:
+# Cost efficiency indicator
+df_cleaned["Charge_Cost_Ratio"] = df_cleaned["Total_Charges"] / df_cleaned["Total_Costs"]
+
+# Facility benchmarks
+df_cleaned["Hospital_Average_LOS"] = df_cleaned["Facility_Name"].map(
+    df_cleaned.groupby("Facility_Name")["Length_of_Stay"].mean())
+
+df_cleaned["Service_Area_Average_LOS"] = df_cleaned["Hospital_Service_Area"].map(
+    df_cleaned.groupby("Hospital_Service_Area")["Length_of_Stay"].mean())
+
+8. **Machine Learning Model**
+I stratified the dataset to 50k records to create a balanced dataset and enable efficient model training. I also scaled the dataset to ensure all input features were on a similar scale.
+I built a Random Forest model for the length of stay prediction, using the following hyperparameter grid:
+random_grid = {
+    'n_estimators': [100],
+    'max_depth': [10],
+    'min_samples_split': [2, 5],
+    'min_samples_leaf': [1, 2],
+    'max_features': ['sqrt', 'log2'],
+    'bootstrap': [True, False]
+}
+I then used RandomizedSearchCV to tune the hyperparameters and find the optimal model configuration.
+The final model achieved the following performance metrics:
+
+
+<img width="217" alt="Screenshot 2024-12-03 at 2 40 46 PM" src="https://github.com/user-attachments/assets/5155b29c-91b9-4796-be09-0224d2d4dc26">
+<img width="1027" alt="Screenshot 2024-12-03 at 2 43 34 PM" src="https://github.com/user-attachments/assets/a3f3faa0-33ff-478f-ba6d-63a7ee62ae08">
+
+
+
+These results indicate a reasonably accurate predictive model for length of stay.
+
+9. **Feature Importance Analysis**
+To understand the key drivers of length of stay prediction, I analyzed the feature importance of the Random Forest model. The top influential features were:
+
+**Cost-Related Features:**
+Total Costs (32.9% importance)
+Total Charges (22.3% importance)
+Charge-Cost Ratio (2.7% importance)
+
+**Clinical Indicators:**
+CCSR Diagnosis Code (6.5% importance)
+APR Severity Illness Code (3.8% importance)
+APR Medical Surgical Description (2.9% importance)
+
+**Facility Metrics:**
+Hospital Average LOS (2.1% importance)
+Service Area Average LOS (1.9% importance)
+
+**Insights:**
+Cost metrics are strongest predictors
+Clinical severity significantly influences LOS
+Facility characteristics play important role
+
+10. **Visualization Dashbaord**
+
+
 
 
 
