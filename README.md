@@ -208,33 +208,33 @@ Cost variations across severity levels
 7. # Feature Engineering
 I engineered several new features to improve model performance:
 **Demographic Features:**
-# Age Group encoding
+**Age Group encoding**
 age_mapping = {" 0 to 17": 1, "18 to 29": 2, "30 to 49": 3, 
                "50 to 69": 4, "70 or Older": 5}
 df_cleaned["Age_Group_encoded"] = df_cleaned["Age_Group"].str.strip().map(age_mapping)
 
-# Gender binary encoding
+**Gender binary encoding**
 gender_mapping = {"M": 1, "F": 0}
 df_cleaned["Gender_Binary"] = df_cleaned["Gender"].map(gender_mapping)
 
 **Clinical Indicators**:
-# Emergency admission flag
+**Emergency admission flag**
 df_cleaned["Is_Emergency_Admission"] = df_cleaned["Type_of_Admission"].apply(
     lambda x: 1 if x == "Emergency" else 0)
 
-# Severity risk composite
+**Severity risk composite**
 df_cleaned["Severity_Risk_Index"] = df_cleaned["APR_Severity_Illness_Code"] * \
                                    df_cleaned["APR_Risk_Mortality"]
 
-# Risk mortality encoding
+**Risk mortality encoding**
 ordinal_mapping = {"Minor": 1, "Moderate": 2, "Extreme": 3, "": 0}
 df_cleaned["APR_Risk_Mortality_Encoded"] = df_cleaned["APR_Risk_Mortality"].map(ordinal_mapping)
 
 **Facility and Cost Metrics**:
-# Cost efficiency indicator
+**Cost efficiency indicator**
 df_cleaned["Charge_Cost_Ratio"] = df_cleaned["Total_Charges"] / df_cleaned["Total_Costs"]
 
-# Facility benchmarks
+**Facility benchmarks**
 df_cleaned["Hospital_Average_LOS"] = df_cleaned["Facility_Name"].map(
     df_cleaned.groupby("Facility_Name")["Length_of_Stay"].mean())
 
