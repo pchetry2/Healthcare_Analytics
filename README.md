@@ -256,7 +256,7 @@ I then used RandomizedSearchCV to tune the hyperparameters and find the optimal 
 The final model achieved the following performance metrics:
 
 
-    <img width="217" alt="Screenshot 2024-12-03 at 2 40 46 PM" src="https://github.com/user-attachments/assets/5155b29c-91b9-4796-be09-0224d2d4dc26">
+<img width="217" alt="Screenshot 2024-12-03 at 2 40 46 PM" src="https://github.com/user-attachments/assets/5155b29c-91b9-4796-be09-0224d2d4dc26">
 <img width="1027" alt="Screenshot 2024-12-03 at 2 43 34 PM" src="https://github.com/user-attachments/assets/a3f3faa0-33ff-478f-ba6d-63a7ee62ae08">
 
 
